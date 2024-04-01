@@ -1,13 +1,33 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Create = () => {
+  const [name, setName] = useState("");
+  const [classId, setClassId] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/create", { name, classId, dob, gender })
+      .then((res) => {
+        console.log(res.data);
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <p className="text-4xl font-semibold text-sky-700 text-center mt-16 mb-8">
         Add New Student Info
       </p>
       <div className="w-1/3 mx-auto bg-sky-200 p-4">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="name"
@@ -19,8 +39,11 @@ const Create = () => {
               type="text"
               id="name"
               name="name"
+              value={name}
               placeholder="Enter name"
               className="border rounded-md px-3 py-2 w-full outline-none"
+              onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div className="mb-4">
@@ -33,7 +56,10 @@ const Create = () => {
             <select
               id="class"
               name="class"
+              value={classId}
+              onChange={(e) => setClassId(e.target.value)}
               className="border rounded-md px-3 py-2 w-full"
+              required
             >
               <option value="">Select Class</option>
               <option value="1">One</option>
@@ -56,7 +82,10 @@ const Create = () => {
               type="date"
               id="dob"
               name="dob"
-              className="border rounded-md px-3 py-2 w-full outline-none"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
+              className="border rounded-md px-3 py-2 w-full"
+              required
             />
           </div>
           <div className="mb-4">
@@ -67,7 +96,10 @@ const Create = () => {
                   type="radio"
                   name="gender"
                   value="male"
+                  checked={gender === "male"}
+                  onChange={(e) => setGender(e.target.value)}
                   className="form-radio"
+                  required
                 />
                 <span className="ml-2">Male</span>
               </label>
@@ -76,7 +108,10 @@ const Create = () => {
                   type="radio"
                   name="gender"
                   value="female"
+                  checked={gender === "female"}
+                  onChange={(e) => setGender(e.target.value)}
                   className="form-radio"
+                  required
                 />
                 <span className="ml-2">Female</span>
               </label>
