@@ -68,7 +68,9 @@ const Home = () => {
                     <img src={detailsIcon} alt="Details" className="w-8" />{" "}
                   </div>
                   <div>
-                    <img src={editIcon} alt="Edit" className="w-8" />
+                    <Link to={`/edit/${d.Id}`}>
+                      <img src={editIcon} alt="Edit" className="w-8" />
+                    </Link>
                   </div>{" "}
                   <div>
                     <img src={deleteIcon} alt="Delete" className="w-8" />{" "}

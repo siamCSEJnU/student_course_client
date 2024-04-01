@@ -9,4 +9,3 @@ const Delete = () => {
 };
 
 export default Delete;
-<p>This is delete page</p>;
