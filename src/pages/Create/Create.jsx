@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import backIcon from "../../assets/icons/back.png";
+import Swal from "sweetalert2";
 
 const Create = () => {
   const [name, setName] = useState("");
@@ -19,6 +21,13 @@ const Create = () => {
         navigate("/");
       })
       .catch((err) => console.log(err));
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Student Info Created Successfuly!",
+      showConfirmButton: false,
+      timer: 1500,
+    });
   };
 
   return (
@@ -125,6 +134,20 @@ const Create = () => {
           </button>
         </form>
       </div>
+      <p className="pt-4 text-center">
+        <Link to={"/"}>
+          {" "}
+          <button className="btn py-1 px-2  rounded-md hover:bg-slate-800 hover:text-slate-200 hover:border-slate-800  text-slate-200 bg-blue-700 border-blue-800">
+            <div className="flex gap-2 items-center">
+              {" "}
+              <p>
+                <img src={backIcon} className="w-4" alt="" />
+              </p>{" "}
+              <p className="text-slate-100">Go Back</p>
+            </div>
+          </button>
+        </Link>
+      </p>
     </div>
   );
 };

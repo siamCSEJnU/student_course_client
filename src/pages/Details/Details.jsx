@@ -4,22 +4,23 @@ import backIcon from "../../assets/icons/back.png";
 import axios from "axios";
 
 const Details = () => {
-  const { Id } = useParams();
+  const { Student_Id } = useParams();
   const [student, setStudent] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/students/${Id}`)
+      .get(`http://localhost:5000/students/${Student_Id}`)
       .then((response) => {
+        console.log(response.data);
         setStudent(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
-  }, [Id]);
+  }, [Student_Id]);
 
-  const getClassLabel = (classId) => {
-    switch (classId) {
+  const getClassLabel = (class_Id) => {
+    switch (class_Id) {
       case 1:
         return "One";
       case 2:
@@ -65,7 +66,7 @@ const Details = () => {
           </p>
           <p className=" pb-1">
             <span className="font-bold">Class: </span>
-            {getClassLabel(student.ClassId)}
+            {getClassLabel(student.Class_Id)}
           </p>
           <p className=" pb-1">
             <span className="font-bold">DOB: </span>
@@ -96,7 +97,7 @@ const Details = () => {
               <p>
                 <img src={backIcon} className="w-4" alt="" />
               </p>{" "}
-              <p>Go Back</p>
+              <p className="text-s">Go Back</p>
             </div>
           </button>
         </Link>

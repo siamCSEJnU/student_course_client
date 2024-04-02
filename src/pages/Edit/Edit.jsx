@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import backIcon from "../../assets/icons/back.png";
 import Swal from "sweetalert2";
 
 const Edit = () => {
   const params = useParams();
-  const { Id } = useParams();
+  const { Student_Id } = useParams();
   console.log(params);
 
   const [name, setName] = useState("");
@@ -16,19 +17,24 @@ const Edit = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/students/${Id}`).then((res) => {
+    axios.get(`http://localhost:5000/students/${Student_Id}`).then((res) => {
       const student = res.data;
       setName(student.Name);
-      setClassId(student.ClassId);
+      setClassId(student.Class_Id);
       setDob(student.DOB);
       setGender(student.Gender === 1 ? "male" : "female");
     });
-  }, [Id]);
+  }, [Student_Id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:5000/edit/${Id}`, { name, classId, dob, gender })
+      .put(`http://localhost:5000/edit/${Student_Id}`, {
+        name,
+        classId,
+        dob,
+        gender,
+      })
       .then((res) => {
         console.log(res.data);
         Swal.fire("Updated Successfuly!", "", "success");
@@ -142,6 +148,20 @@ const Edit = () => {
           </button>
         </form>
       </div>
+      <p className="pt-4 text-center">
+        <Link to={"/"}>
+          {" "}
+          <button className="btn py-1 px-2  rounded-md hover:bg-slate-800 hover:text-slate-200 hover:border-slate-800  text-slate-200 bg-blue-700 border-blue-800">
+            <div className="flex gap-2 items-center">
+              {" "}
+              <p>
+                <img src={backIcon} className="w-4" alt="" />
+              </p>{" "}
+              <p className="text-slate-100">Go Back</p>
+            </div>
+          </button>
+        </Link>
+      </p>
     </div>
   );
 };

@@ -15,7 +15,8 @@ const Home = () => {
 
   const fetchData = () => {
     axios.get("http://localhost:5000/students").then((res) => {
-      const formattedData = res.data.map((d) => ({
+      console.log("Response data:", res.data);
+      const formattedData = res?.data?.map((d) => ({
         ...d,
         DOB: formatDate(d.DOB),
       }));
@@ -73,7 +74,7 @@ const Home = () => {
               <th className="border border-slate-200 p-2">Class</th>
               <th className="border border-slate-200 p-2">DOB</th>
               <th className="border border-slate-200 p-2">Gender</th>
-              <th className="border border-slate-200 p-2">Action</th>
+              <th className="border border-slate-200 p-2">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -91,7 +92,7 @@ const Home = () => {
                 </td>
                 <td className="flex justify-center gap-5 border border-slate-200 p-2">
                   <div>
-                    <Link to={`/details/${d.Id}`}>
+                    <Link to={`/details/${d.Student_Id}`}>
                       {" "}
                       <img
                         src={detailsIcon}
@@ -101,14 +102,14 @@ const Home = () => {
                     </Link>
                   </div>
                   <div>
-                    <Link to={`/edit/${d.Id}`}>
+                    <Link to={`/edit/${d.Student_Id}`}>
                       <img src={editIcon} alt="Edit" className="w-8" />
                     </Link>
                   </div>{" "}
                   <div>
                     <img
                       src={deleteIcon}
-                      onClick={(e) => handleDelete(d.Id)}
+                      onClick={(e) => handleDelete(d.Student_Id)}
                       alt="Delete"
                       className="w-8 cursor-pointer"
                     />{" "}
