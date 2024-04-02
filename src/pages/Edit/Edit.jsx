@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Edit = () => {
   const params = useParams();
@@ -30,6 +31,7 @@ const Edit = () => {
       .put(`http://localhost:5000/edit/${Id}`, { name, classId, dob, gender })
       .then((res) => {
         console.log(res.data);
+        Swal.fire("Updated Successfuly!", "", "success");
 
         navigate("/");
       })

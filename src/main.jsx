@@ -5,7 +5,6 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home/Home.jsx";
 import Edit from "./pages/Edit/Edit.jsx";
-import Delete from "./pages/Delete/Delete.jsx";
 import Create from "./pages/Create/Create.jsx";
 import Details from "./pages/Details/Details.jsx";
 
@@ -19,16 +18,12 @@ const router = createBrowserRouter([
     element: <Create></Create>,
   },
   {
-    path: "/details",
+    path: "/details/:Id",
     element: <Details></Details>,
   },
   {
     path: "/edit/:Id",
     element: <Edit></Edit>,
-  },
-  {
-    path: "/delete",
-    element: <Delete></Delete>,
   },
 ]);
 
